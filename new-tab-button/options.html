@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>New Tab Button Extension Options</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.contentWrap {
+	margin: 0 auto;
+	padding: 1em;
+	min-width: 20.5em; /* MS Edge uses a really narrow options popup */
+	max-width: 42em;
+	font-size: 1rem;
+}
+em {
+	font-style: normal;
+	font-weight: 700;
+}
+span.label {
+	display: inline-block;
+}
+.field,.buttons {
+	margin: 0 auto 2em;
+}
+input,textarea, select {
+	box-sizing: border-box;
+	font-size: 1em;
+}
+.field input:not([type="radio"]):not([type="checkbox"]),
+.field select {
+	width: 22em;
+	max-width: 100%;
+	padding: .25em;
+	margin: .25em 0;
+}
+
+fieldset {
+	max-width: 100%;
+	overflow: visible;
+	margin: 0 0 1.5em;
+	padding: 0 .75em .125em;
+	border: 2px solid;
+	border-radius: 1.5em;
+}
+legend {
+	padding: 0 .5em;
+	margin: 0 0 0 1em;
+}
+
+.field.radio {
+	margin: 1.25em 0 1.25em 2.25em;
+}
+.field.cb span.label,
+.field.radio label {
+	display: block;
+}
+.field.radio input {
+	margin-left: -2em;
+	transform: scale(1.5);
+	transform-origin: 100% 75%;
+}
+.field.cb input {
+	transform: scale(1.5);
+	margin: .25em .5em .5em .25em;
+	float: left;
+}
+
+.buttons {
+	text-align: center;
+}
+button {
+	border-radius: .625em;
+	padding: .375em 1em;
+	font-weight: 700;
+}
+button.primary {
+	border-radius: .875em;
+	padding: .625em 1.5em;
+}
+
+#status {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	pointer-events: none;
+	margin: 0;
+	padding: 1em;
+}
+#status p {
+	margin: 0;
+	padding: 1em;
+	font-weight: 700;
+	background: #fff;
+	-webkit-transition: opacity .5s, -webkit-transform .5s;
+	transition: opacity .5s, transform .5s;
+}
+.hideMsg {
+	opacity: 0;
+	-webkit-transform: translateY(4em);
+	transform: translateY(4em);
+}
+i.checkmark {
+	font-size: .9em;
+}
+i.checkmark:before {
+	content: '\2714';
+	font-weight: 400;
+	font-style: normal;
+	text-shadow: 0 .125em .125em #222;
+	line-height: 1.2;
+	width: 1em;
+	text-align: center;
+	font-size: 1em;
+	display: inline-block;
+	border-radius: 5em;
+	color: #222;
+	background: #0c0;
+	padding: 0 .2em .2em;
+	-webkit-transition: -webkit-transform .4s .25s;
+	transition: transform .4s .25s;
+}
+.hideMsg i.checkmark:before {
+	-webkit-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+
+ul {
+	margin: 2em 0;
+	padding: 0;
+	list-style: none;
+}
+ul>li {
+	padding: .125em .25em;
+}
+@media screen and (prefers-color-scheme:dark) {
+	:root, :root textarea {
+		background: #000;
+		color: #eee;
+	}
+	#status p {
+		color: #eee;
+		background: #000;
+	}
+}
+
+@keyframes spinner {
+	from {transform:rotate(0)}
+	to {transform:rotate(360deg)}
+}
+svg.spinner {
+	animation:spinner 1.5s linear infinite forwards;
+	display: block;
+	margin: 1em auto;
+}
+</style>
+</head>
+<body>
+
+<div class="contentWrap">
+	<form action="?">
+		<div class="field">
+			<label for="themeLuminosity"><span class="label">Choose whether you're using a light or dark theme for your browser.</span></label>
+			<select id="themeLuminosity">
+				<option value="light">Light</option>
+				<option value="dark">Dark</option>
+			</select>
+		</div> <!-- /.field -->
+
+		<div class="field">
+			<label for="customColor"><span class="label">Choose a custom color for this extention's icon (in RGB-hex notation, e.g. "#F5A028" or "#FFD388").</span></label>
+			<input type="text" id="customColor" pattern="^#?[0-9a-fA-F]{0,6}$" maxlength="7">
+		</div> <!-- /.field -->
+
+		<div class="field cb hidden">
+			<label for="allowOpenURLFromClipboard">
+				<input type="checkbox" id="allowOpenURLFromClipboard">
+				<span class="label">Add the context menu option to open new tab with URL from clipboard?</span>
+			</label>
+		</div> <!-- /.field -->
+
+		<fieldset>
+			<legend><span class="legend">Open new tabs to left or right of current tab?</span></legend>
+			<div class="field radio">
+				<label><input type="radio" name="whichSide" value="left"> <span class="label"> Left</span></label>
+			</div> <!-- /.field -->
+			<div class="field radio">
+				<label><input type="radio" name="whichSide" value="right"> <span class="label"> Right</span></label>
+			</div> <!-- /.field -->
+		</fieldset>
+
+		<div class="buttons"><button type="submit" class="primary">Save</button></div> <!-- /.buttons -->
+
+		<div><output id="status"></output> <!-- /#status --></div>
+
+	</form>
+</div> <!-- /.contentWrap -->
+</body>
+<script src="options.js"></script>
+</html>

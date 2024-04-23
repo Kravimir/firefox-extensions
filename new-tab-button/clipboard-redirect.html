@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Open New Tab With URL From Clipboard Redirect</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@media screen and (prefers-color-scheme:dark) {
+	:root, :root textarea {
+		background: #000;
+		color: #eee;
+	}
+	#status p {
+		color: #eee;
+		background: #000;
+	}
+}
+
+.buttons {
+	text-align: center;
+}
+button {
+	border-radius: .625em;
+	padding: .375em 1em;
+	font-weight: 700;
+}
+button.primary {
+	border-radius: .875em;
+	padding: .625em 1.5em;
+}
+
+#status {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	pointer-events: none;
+	margin: 0;
+	padding: 1em;
+}
+#status p {
+	margin: 0;
+	padding: 1em;
+	font-weight: 700;
+	background: #fff;
+	-webkit-transition: opacity .5s, -webkit-transform .5s;
+	transition: opacity .5s, transform .5s;
+}
+</style>
+</head>
+<body>
+
+
+<!--
+	<div class="buttons"><button type="submit" class="primary">Save</button></div>--> <!-- /.buttons -->
+
+	<div><output id="status"></output></div>
+
+<script src="clipboard-redirect.js"></script>
+
+
+</body>
+</html>
